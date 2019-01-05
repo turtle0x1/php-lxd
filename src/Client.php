@@ -61,6 +61,11 @@ class Client
     private $httpClientModified = true;
 
     /**
+     * Project to query lxd by
+     */
+    private $project = "default";
+
+    /**
      * Create a new lxd client Instance
      */
     public function __construct(HttpClient $httpClient = null, $apiVersion = null, $url = null)
