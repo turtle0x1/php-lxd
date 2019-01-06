@@ -346,9 +346,17 @@ class Containers extends AbstructEndpoint
      * @param  bool   $wait Wait for operation to finish
      * @return object
      */
-    public function migrate(\Opensaucesystems\Lxd\Client $destination, $name, $wait = false)
-    {
-        return $destination->containers->create($name, $this->initMigration($name), $wait);
+    public function migrate(
+        \Opensaucesystems\Lxd\Client $destination,
+        $name,
+        string $newName = "",
+        $wait = false
+    ) {
+        if (empty($newName)) {
+            $newName = $name;
+        }
+
+        return $destination->containers->create($newName, $this->initMigration($name), $wait);
     }
 
     /**
@@ -364,11 +372,11 @@ class Containers extends AbstructEndpoint
         $container = $this->info($name);
         $url = $this->client->getUrl().'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
 
-        return [
+
+        $settings = [
             'name'         => $name,
             'architecture' => $container['architecture'],
             'config'       => $container['config'],
-            'devices'      => $container['devices'],
             'epehemeral'   => $container['ephemeral'],
             'profiles'     => $container['profiles'],
             'source'       => [
@@ -379,6 +387,12 @@ class Containers extends AbstructEndpoint
                 'secrets'     => $migration['metadata'],
             ]
         ];
+
+        if (!empty($container["devices"])) {
+            $settings["devices"] = $container["devices"];
+        }
+
+        return $settings;
     }
 
     /**
