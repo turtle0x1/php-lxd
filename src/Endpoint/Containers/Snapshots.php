@@ -21,12 +21,18 @@ class Snapshots extends AbstructEndpoint
     {
         $snapshots = [];
 
-        foreach ($this->get($this->getEndpoint().$name.'/snapshots/') as $snapshot) {
-            $snapshots[] = str_replace(
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        foreach ($this->get($this->getEndpoint().$name.'/snapshots/', $config) as $snapshot) {
+            $snapshot = str_replace(
                 '/'.$this->client->getApiVersion().'/containers/'.$name.'/snapshots/',
                 '',
                 $snapshot
             );
+            $snapshot = str_replace("?project=".$config["project"], "", $snapshot);
+            $snapshots[] = $snapshot;
         }
 
         return $snapshots;
@@ -41,7 +47,11 @@ class Snapshots extends AbstructEndpoint
      */
     public function info($name, $snapshot)
     {
-        return $this->get($this->getEndpoint().$name.'/snapshots/'.$snapshot);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->get($this->getEndpoint().$name.'/snapshots/'.$snapshot, $config);
     }
 
     /**
@@ -63,7 +73,11 @@ class Snapshots extends AbstructEndpoint
         $opts['name']     = $snapshot;
         $opts['stateful'] = $stateful;
 
-        $response = $this->post($this->getEndpoint().$name.'/snapshots', $opts);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        $response = $this->post($this->getEndpoint().$name.'/snapshots', $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -101,7 +115,10 @@ class Snapshots extends AbstructEndpoint
     public function rename($name, $snaphot, $newSnapshot, $wait = false)
     {
         $opts['name'] = $newSnapshot;
-        $response = $this->post($this->getEndpoint().$name.'/snapshots/'.$snaphot, $opts);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+        $response = $this->post($this->getEndpoint().$name.'/snapshots/'.$snaphot, $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -120,7 +137,11 @@ class Snapshots extends AbstructEndpoint
      */
     public function remove($name, $snaphot, $wait = false)
     {
-        $response = $this->delete($this->getEndpoint().$name.'/snapshots/'.$snaphot);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        $response = $this->delete($this->getEndpoint().$name.'/snapshots/'.$snaphot, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
