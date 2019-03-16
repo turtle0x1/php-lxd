@@ -638,6 +638,7 @@ class Containers extends AbstructEndpoint
             'ephemeral',
             'config',
             'devices',
+            'instance_type'
         ];
         $opts         = array_intersect_key($options, array_flip((array) $only));
         $opts['name'] = $name;
