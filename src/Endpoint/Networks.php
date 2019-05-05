@@ -37,4 +37,34 @@ class Networks extends AbstructEndpoint
     {
         return $this->get($this->getEndpoint().$name);
     }
+
+    /**
+     * Create a network
+     *
+     * @param  string $name name of network
+     * @param  array  $config configuration of the network (Optional)
+     * @return object
+     */
+    public function create(string $name, string $description = "", array $config = [])
+    {
+        $data = [];
+
+        $data["name"] = $name;
+        $data["description"] = $description;
+        if (!empty($config)) {
+            $data["config"] = $config;
+        }
+
+        return $this->post($this->getEndpoint(), $data);
+    }
+
+    /**
+     * Delete network
+     * @param string $name name of network
+     * @return object
+     */
+    public function remove($name)
+    {
+        return $this->delete($this->getEndpoint().$name);
+    }
 }
