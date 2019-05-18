@@ -123,4 +123,20 @@ class Backups extends AbstructEndpoint
 
         return $response;
     }
+    /**
+     * Download a backup
+     * @param string $container Name of a container
+     * @param string $name      Name of the backup
+     * @return object
+     */
+    public function export(string $container, string $name)
+    {
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        $response = $this->get($this->getEndpoint().$container.'/backups/'.$name . "/export", $config);
+
+        return $response;
+    }
 }
