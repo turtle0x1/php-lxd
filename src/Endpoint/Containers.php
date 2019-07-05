@@ -367,11 +367,26 @@ class Containers extends AbstructEndpoint
      */
     public function initMigration($name)
     {
-        $migration = $this->post($this->getEndpoint().$name, ['migration' => true]);
-        $host = $this->client->host->info();
-        $container = $this->info($name);
-        $url = $this->client->getUrl().'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
+        $containerName = "";
 
+        if (strpos($name, "/") !== false) {
+            $parts = explode("/", $name);
+            $partsLength = count($parts);
+            if ($partsLength == 0 || $partsLength > 2) {
+                throw new \Exception("Snapshot name format not correct", 1);
+            }
+            $containerName = $parts[0];
+            $container = $this->snapshots->info($containerName, $parts[1]);
+        } else {
+            $containerName = $name;
+            $container = $this->info($name);
+        }
+
+        $migration = $this->post($this->getEndpoint().$containerName, ['migration' => true]);
+
+        $host = $this->client->host->info();
+
+        $url = $this->client->getUrl().'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
 
         $settings = [
             'name'         => $name,
