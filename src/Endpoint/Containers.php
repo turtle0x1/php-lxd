@@ -356,7 +356,7 @@ class Containers extends AbstructEndpoint
             $newName = $name;
         }
 
-        return $destination->containers->create($newName, $this->initMigration($name), $wait);
+        return $destination->containers->create($newName, $this->initMigration($name, $newName), $wait);
     }
 
     /**
@@ -365,7 +365,7 @@ class Containers extends AbstructEndpoint
      * @param  string $name Name of existing container
      * @return array
      */
-    public function initMigration($name)
+    public function initMigration($name, $newName)
     {
         $containerName = "";
 
@@ -377,12 +377,19 @@ class Containers extends AbstructEndpoint
             }
             $containerName = $parts[0];
             $container = $this->snapshots->info($containerName, $parts[1]);
+            $containerName = $parts[0] . "/snapshots/". $parts[1];
         } else {
             $containerName = $name;
             $container = $this->info($name);
         }
 
-        $migration = $this->post($this->getEndpoint().$containerName, ['migration' => true]);
+
+
+        $migration = $this->post($this->getEndpoint().$containerName, [
+            'name'=>$newName,
+            'migration' => true,
+            'stateful'=>false
+        ]);
 
         $host = $this->client->host->info();
 
