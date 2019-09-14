@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [0.13.0]
+
+## Added
+ - Some of the cluster endpoints
+
 ## [0.12.3]
 
 ## Fixed
