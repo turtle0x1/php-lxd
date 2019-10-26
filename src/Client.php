@@ -16,6 +16,8 @@ use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\MessageFactory;
+use Psr\Cache\CacheItemPoolInterface;
+use \Http\Message\StreamFactory;
 
 class Client
 {
@@ -179,7 +181,7 @@ class Client
     public function addCache(CacheItemPoolInterface $cachePool, array $config = [])
     {
         $this->removeCache();
-        $this->addPlugin(new Plugin\CachePlugin($cachePool, $this->streamFactory, $config));
+        $this->addPlugin(new Plugin\CachePlugin($cachePool, new \Http\Message\StreamFactory\GuzzleStreamFactory(), $config));
     }
 
     /**

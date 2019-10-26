@@ -4,6 +4,17 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [0.13.2]
+
+## Fixed
+ - not being able to cache responses due to bad namespaces
+
+
+## [0.13.1]
+
+## Added
+ - Delete container file (#11 @TonyBogdanov)
+
 ## [0.13.0]
 
 ## Added
