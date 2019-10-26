@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.14.0]
+
+## Added
+  - Provide backup as source type & file to create container from backup file 
+
 ## [0.13.2]
 
 ## Fixed

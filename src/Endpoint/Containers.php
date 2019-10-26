@@ -259,7 +259,7 @@ class Containers extends AbstructEndpoint
      * @param bool $wait Wait for operation to finish
      * @return object
      */
-    public function create($name, array $options, $wait = false)
+    public function create($name, array $options, $wait = false, array $requestHeaders = [])
     {
         $source = $this->getSource($options);
 
@@ -267,7 +267,10 @@ class Containers extends AbstructEndpoint
             throw new SourceImageException();
         }
 
-        if (!empty($options['source'])) {
+        if ($source == "backup") {
+            $opts = $this->getOptions($name, $options);
+            $requestHeaders["Content-Type"] = "application/octet-stream";
+        } elseif (!empty($options['source'])) {
             $opts = $this->getOptions($name, $options);
             $opts['source'] = $source;
         } elseif (isset($options['empty']) && $options['empty']) {
@@ -282,7 +285,8 @@ class Containers extends AbstructEndpoint
             "project"=>$this->client->getProject()
         ];
 
-        $response = $this->post($this->getEndpoint(), $opts, $config);
+
+        $response = $this->post($this->getEndpoint(), $opts, $config, $requestHeaders);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -630,6 +634,7 @@ class Containers extends AbstructEndpoint
                 'fingerprint',
                 'properties',
                 'live',
+                'backup'
             ];
             $opts = array_intersect_key($options, array_flip((array) $only));
 
@@ -654,6 +659,13 @@ class Containers extends AbstructEndpoint
      */
     private function getOptions($name, $options)
     {
+        if (isset($options["source"]) && $options["source"] == "backup") {
+            if (!isset($options["file"])) {
+                throw new \Exception('source => backup requires file => file_get_contents(BACKUP_PATH) ');
+            }
+            return $options["file"];
+        }
+
         $only = [
             'architecture',
             'profiles',
