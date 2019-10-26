@@ -6,7 +6,7 @@ use Opensaucesystems\Lxd\Client;
 use Opensaucesystems\Lxd\HttpClient\Message\ResponseMediator;
 use Opensaucesystems\Lxd\Exception\SourceImageException;
 
-class Cluster extends AbstructEndpoint
+class Cluster extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

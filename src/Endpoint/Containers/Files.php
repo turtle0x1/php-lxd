@@ -2,9 +2,9 @@
 
 namespace Opensaucesystems\Lxd\Endpoint\Containers;
 
-use Opensaucesystems\Lxd\Endpoint\AbstructEndpoint;
+use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
-class Files extends AbstructEndpoint
+class Files extends AbstractEndpoint
 {
     protected function getEndpoint()
     {
@@ -50,7 +50,7 @@ class Files extends AbstructEndpoint
 
         return $this->post($this->getEndpoint().$name.'/files?path='.$filepath, $data, $headers);
     }
-    
+
     /**
      * Delete a file in a container
      *

@@ -2,7 +2,7 @@
 
 namespace Opensaucesystems\Lxd\Endpoint;
 
-class Storage extends AbstructEndpoint
+class Storage extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

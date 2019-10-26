@@ -4,7 +4,7 @@ namespace Opensaucesystems\Lxd\Endpoint;
 
 use Opensaucesystems\Lxd\Exception\OperationException;
 
-class Operations extends AbstructEndpoint
+class Operations extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

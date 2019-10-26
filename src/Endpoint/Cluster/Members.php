@@ -2,9 +2,9 @@
 
 namespace Opensaucesystems\Lxd\Endpoint\Cluster;
 
-use Opensaucesystems\Lxd\Endpoint\AbstructEndpoint;
+use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
-class Members extends AbstructEndpoint
+class Members extends AbstractEndpoint
 {
     protected function getEndpoint()
     {
