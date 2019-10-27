@@ -2,9 +2,9 @@
 
 namespace Opensaucesystems\Lxd\Endpoint\Images;
 
-use Opensaucesystems\Lxd\Endpoint\AbstructEndpoint;
+use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
-class Aliases extends AbstructEndpoint
+class Aliases extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

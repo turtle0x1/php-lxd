@@ -2,9 +2,9 @@
 
 namespace Opensaucesystems\Lxd\Endpoint\Storage;
 
-use Opensaucesystems\Lxd\Endpoint\AbstructEndpoint;
+use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
-class Volumes extends AbstructEndpoint
+class Volumes extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

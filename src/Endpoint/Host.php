@@ -5,7 +5,7 @@ namespace Opensaucesystems\Lxd\Endpoint;
 use Opensaucesystems\Lxd\Client;
 use Opensaucesystems\Lxd\HttpClient\Message\ResponseMediator;
 
-class Host extends AbstructEndpoint
+class Host extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

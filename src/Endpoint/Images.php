@@ -4,7 +4,7 @@ namespace Opensaucesystems\Lxd\Endpoint;
 
 use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
 
-class Images extends AbstructEndpoint
+class Images extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

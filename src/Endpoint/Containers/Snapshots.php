@@ -2,9 +2,9 @@
 
 namespace Opensaucesystems\Lxd\Endpoint\Containers;
 
-use Opensaucesystems\Lxd\Endpoint\AbstructEndpoint;
+use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
-class Snapshots extends AbstructEndpoint
+class Snapshots extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

@@ -2,7 +2,7 @@
 
 namespace Opensaucesystems\Lxd\Endpoint;
 
-class Profiles extends AbstructEndpoint
+class Profiles extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

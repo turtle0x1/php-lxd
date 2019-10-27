@@ -5,7 +5,7 @@ namespace Opensaucesystems\Lxd\Endpoint;
 use Opensaucesystems\Lxd\Client;
 use Opensaucesystems\Lxd\HttpClient\Message\ResponseMediator;
 
-abstract class AbstructEndpoint
+abstract class AbstractEndpoint
 {
     protected $client;
 

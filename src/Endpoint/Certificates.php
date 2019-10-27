@@ -2,7 +2,7 @@
 
 namespace Opensaucesystems\Lxd\Endpoint;
 
-class Certificates extends AbstructEndpoint
+class Certificates extends AbstractEndpoint
 {
     protected function getEndpoint()
     {

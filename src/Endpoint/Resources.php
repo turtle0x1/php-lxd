@@ -2,7 +2,7 @@
 
 namespace Opensaucesystems\Lxd\Endpoint;
 
-class Resources extends AbstructEndpoint
+class Resources extends AbstractEndpoint
 {
     protected function getEndpoint()
     {
