@@ -1,16 +1,22 @@
 <?php
 
-namespace Opensaucesystems\Lxd\Endpoint\Containers;
+namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
 class Snapshots extends AbstractEndpoint
 {
+    private $endpoint;
+
     protected function getEndpoint()
     {
-        return '/containers/';
+        return $this->endpoint;
     }
 
+    public function setEndpoint(string $endpoint)
+    {
+        $this->endpoint = $endpoint;
+    }
     /**
      * List of snapshots for a container
      *
@@ -27,7 +33,7 @@ class Snapshots extends AbstractEndpoint
 
         foreach ($this->get($this->getEndpoint().$name.'/snapshots/', $config) as $snapshot) {
             $snapshot = str_replace(
-                '/'.$this->client->getApiVersion().'/containers/'.$name.'/snapshots/',
+                '/'.$this->client->getApiVersion().$this->getEndpoint().$name.'/snapshots/',
                 '',
                 $snapshot
             );

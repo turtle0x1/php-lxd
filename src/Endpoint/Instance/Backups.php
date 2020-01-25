@@ -1,15 +1,24 @@
 <?php
 
-namespace Opensaucesystems\Lxd\Endpoint\Containers;
+namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
 class Backups extends AbstractEndpoint
 {
+    private $endpoint;
+
     protected function getEndpoint()
     {
-        return '/containers/';
+        return $this->endpoint;
     }
+
+    public function setEndpoint(string $endpoint)
+    {
+        $this->endpoint = $endpoint;
+    }
+
+
     /**
      * Get all backups for a particular container
      * @param string $container Container name
@@ -25,7 +34,7 @@ class Backups extends AbstractEndpoint
 
         foreach ($this->get($this->getEndpoint().$container.'/backups/', $config) as $backup) {
             $backup = str_replace(
-                '/'.$this->client->getApiVersion().'/containers/'.$container.'/backups/',
+                '/'.$this->client->getApiVersion().$this->getEndpoint().$container.'/backups/',
                 '',
                 $backup
             );

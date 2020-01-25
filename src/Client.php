@@ -67,6 +67,8 @@ class Client
      */
     private $project = "default";
 
+    private $hasVmsCache = null;
+
     /**
      * Create a new lxd client Instance
      */
@@ -85,6 +87,14 @@ class Client
         $this->addPlugin(new LxdExceptionThower());
 
         $this->setUrl($this->url);
+
+        $extensions = $this->host->info()["api_extensions"];
+        $this->hasVmsCache = in_array("virtual-machines", $extensions);
+    }
+
+    public function hasVms()
+    {
+        return $this->hasVmsCache;
     }
 
     /**

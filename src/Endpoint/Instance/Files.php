@@ -1,14 +1,21 @@
 <?php
 
-namespace Opensaucesystems\Lxd\Endpoint\Containers;
+namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
 class Files extends AbstractEndpoint
 {
+    private $endpoint;
+
     protected function getEndpoint()
     {
-        return '/containers/';
+        return $this->endpoint;
+    }
+
+    public function setEndpoint(string $endpoint)
+    {
+        $this->endpoint = $endpoint;
     }
 
     /**

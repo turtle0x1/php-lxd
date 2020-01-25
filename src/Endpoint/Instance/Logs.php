@@ -1,14 +1,21 @@
 <?php
 
-namespace Opensaucesystems\Lxd\Endpoint\Containers;
+namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 
 class Logs extends AbstractEndpoint
 {
+    private $endpoint;
+
     protected function getEndpoint()
     {
-        return '/containers/';
+        return $this->endpoint;
+    }
+
+    public function setEndpoint(string $endpoint)
+    {
+        $this->endpoint = $endpoint;
     }
 
     /**
@@ -23,7 +30,7 @@ class Logs extends AbstractEndpoint
 
         foreach ($this->get($this->getEndpoint().$name.'/logs/') as $log) {
             $logs[] = str_replace(
-                '/'.$this->client->getApiVersion().'/containers/'.$name.'/logs/',
+                '/'.$this->client->getApiVersion().$this->getEndpoint().$name.'/logs/',
                 '',
                 $log
             );

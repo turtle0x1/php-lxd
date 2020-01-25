@@ -2,10 +2,10 @@
 
 namespace Opensaucesystems\Lxd\Endpoint;
 
-class Containers extends InstaceBase
+class VirtualMachines extends InstaceBase
 {
     protected function getEndpoint()
     {
-        return '/containers/';
+        return '/virtual-machines/';
     }
 }
