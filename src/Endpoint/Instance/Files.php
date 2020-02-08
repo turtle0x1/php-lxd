@@ -39,7 +39,7 @@ class Files extends AbstractEndpoint
      * @param  string $data     Data to write to the file
      * @return object
      */
-    public function write($name, $filepath, $data, $uid = null, $gid = null, $mode = null)
+    public function write($name, $filepath, $data, $uid = null, $gid = null, $mode = null, $type = "file")
     {
         $headers = [];
 
@@ -55,7 +55,11 @@ class Files extends AbstractEndpoint
             $headers['X-LXD-mode'] = $mode;
         }
 
-        return $this->post($this->getEndpoint().$name.'/files?path='.$filepath, $data, $headers);
+        if (is_string($type)) {
+            $headers['X-LXD-type'] = $type;
+        }
+
+        return $this->post($this->getEndpoint().$name.'/files?path='.$filepath, $data, [], $headers);
     }
 
     /**
