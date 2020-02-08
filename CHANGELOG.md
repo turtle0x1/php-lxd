@@ -4,10 +4,18 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.15.0]
+
+## Added
+ - Added an instance class that you should use instead of containers, it will
+   fall back to the `/containers` endpoint if your host doesn't support `/instances`
+   which is the agnostic way of dealing with both containers and virtual machines
+
+
 # [0.14.0]
 
 ## Added
-  - Provide backup as source type & file to create container from backup file 
+  - Provide backup as source type & file to create container from backup file
 
 ## [0.13.2]
 
