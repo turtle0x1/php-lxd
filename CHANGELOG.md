@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.15.2]
+
+## Added
+ - Added optional target parameter for creating instance
+
 # [0.15.1]
 
 ## Fixed
