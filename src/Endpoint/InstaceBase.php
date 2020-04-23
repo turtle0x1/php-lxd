@@ -255,7 +255,7 @@ abstract class InstaceBase extends AbstractEndpoint
      * @param bool $wait Wait for operation to finish
      * @return object
      */
-    public function create($name, array $options, $wait = false, array $requestHeaders = [])
+    public function create($name, array $options, $wait = false, array $requestHeaders = [], string $target = "")
     {
         $source = $this->getSource($options);
 
@@ -280,6 +280,10 @@ abstract class InstaceBase extends AbstractEndpoint
         $config = [
             "project"=>$this->client->getProject()
         ];
+
+        if (!empty($target)) {
+            $config["target"] = $target;
+        }
 
 
         $response = $this->post($this->getEndpoint(), $opts, $config, $requestHeaders);
