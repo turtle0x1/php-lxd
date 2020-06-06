@@ -172,7 +172,7 @@ class Images extends AbstractEndpoint
     public function createFromContainer($name, array $options, $wait = false)
     {
         $opts                   = $this->getOptions($options);
-        $opts['source']['type'] = 'container';
+        $opts['source']['type'] = 'instance';
         $opts['source']['name'] = $name;
 
         return $this->create($opts, [], $wait);
