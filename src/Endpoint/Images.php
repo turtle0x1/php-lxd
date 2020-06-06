@@ -321,6 +321,7 @@ class Images extends AbstractEndpoint
             'public',
             'properties',
             'auto_update',
+            'aliases'
         ];
         $opts = array_intersect_key($options, array_flip((array) $only));
 
