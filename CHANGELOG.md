@@ -4,6 +4,12 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.16.1]
+
+## Added
+  - Support passing alias param when creating image
+  - Use "instance" instead of "container" when creating image from "container"
+
 # [0.16.0]
 
 ## Added
