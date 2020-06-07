@@ -5,7 +5,7 @@ api's added.
 
 Thanks for the work
 
-# php-lxd !!!BETA!!!
+# php-lxd
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -53,13 +53,13 @@ If you discover any security related issues, please email ashley@opensauce.syste
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/opensaucesystems/lxd.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/dhope0000/lxd.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/ashleyhood/php-lxd/master.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/opensaucesystems/lxd.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/dhope0000/lxd.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/opensaucesystems/lxd
+[link-packagist]: https://packagist.org/packages/dhope0000/lxd
 [link-travis]: https://travis-ci.org/ashleyhood/php-lxd
-[link-downloads]: https://packagist.org/packages/opensaucesystems/lxd
+[link-downloads]: https://packagist.org/packages/dhope0000/lxd
 [link-author]: https://opensauce.systems
 [link-contributors]: ../../contributors
