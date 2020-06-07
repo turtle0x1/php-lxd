@@ -41,7 +41,7 @@ class Projects extends AbstractEndpoint
 
     public function info(string $name)
     {
-        return $this->get($this->getEndpoint() . "/" . $name);
+        return $this->get($this->getEndpoint() . $name);
     }
 
     public function replace(string $name, string $description = "", array $config = [])
@@ -56,7 +56,7 @@ class Projects extends AbstractEndpoint
     public function update(string $name, string $description = "", array $config = [])
     {
         $project = [];
-        if(!empty($description)){
+        if (!empty($description)) {
             $project["description"] = $description;
         }
         $project["config"] = empty($config) ? $this->defaultProjectConfig() : $config;

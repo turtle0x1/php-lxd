@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.16.2]
+
+## Fixed
+  - Cant load project info because path is wrong
+
 # [0.16.1]
 
 ## Added
