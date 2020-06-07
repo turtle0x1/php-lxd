@@ -16,11 +16,17 @@ class Members extends AbstractEndpoint
      *
      * @return array
      */
-    public function all()
+    public function all(int $recursion = 0)
     {
         $members = [];
 
-        foreach ($this->get($this->getEndpoint()) as $member) {
+        $config = [];
+
+        if ($recursion > 0) {
+            $config["recursion"] = $recursion;
+        }
+
+        foreach ($this->get($this->getEndpoint(), $config) as $member) {
             $members[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $member);
         }
 
