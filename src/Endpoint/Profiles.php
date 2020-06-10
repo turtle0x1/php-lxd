@@ -16,13 +16,18 @@ class Profiles extends AbstractEndpoint
      *
      * @return array
      */
-    public function all()
+    public function all(int $recursion = 0)
     {
         $profiles = [];
 
         $config = [
             "project"=>$this->client->getProject()
         ];
+
+        if ($recursion > 0) {
+            $config["recursion"] = $recursion;
+        }
+
 
         foreach ($this->get($this->getEndpoint(), $config) as $profile) {
             $x = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $profile);
