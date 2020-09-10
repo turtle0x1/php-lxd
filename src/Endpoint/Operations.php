@@ -81,7 +81,7 @@ class Operations extends AbstractEndpoint
         $endpoint = $this->getEndpoint().$uuid.'/wait';
 
         if (is_numeric($timeout) && $timeout > 0) {
-            $endpoint .= '?timeout='.$timeout;
+            $config['timeout'] = $timeout;
         }
 
         return $this->get($endpoint, $config);
