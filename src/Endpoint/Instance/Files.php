@@ -27,7 +27,12 @@ class Files extends AbstractEndpoint
      */
     public function read($name, $filepath)
     {
-        return $this->get($this->getEndpoint().$name.'/files?path='.$filepath);
+        $config = [
+            "project"=>$this->client->getProject(),
+            "path"=>$filepath
+        ];
+
+        return $this->get($this->getEndpoint().$name.'/files', $config);
     }
 
     /**
@@ -59,7 +64,12 @@ class Files extends AbstractEndpoint
             $headers['X-LXD-type'] = $type;
         }
 
-        return $this->post($this->getEndpoint().$name.'/files?path='.$filepath, $data, [], $headers);
+        $config = [
+            "project"=>$this->client->getProject(),
+            "path"=>$filepath
+        ];
+
+        return $this->post($this->getEndpoint().$name.'/files', $data, $config, $headers);
     }
 
     /**
@@ -71,6 +81,10 @@ class Files extends AbstractEndpoint
      */
     public function remove($name, $filepath)
     {
-        return $this->delete($this->getEndpoint().$name.'/files?path='.$filepath);
+        $config = [
+            "project"=>$this->client->getProject(),
+            "path"=>$filepath
+        ];
+        return $this->delete($this->getEndpoint().$name.'/files', $config);
     }
 }
