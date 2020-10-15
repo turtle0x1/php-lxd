@@ -87,13 +87,13 @@ class Client
         $this->addPlugin(new LxdExceptionThower());
 
         $this->setUrl($this->url);
-
-        $extensions = $this->host->info()["api_extensions"];
-        $this->hasVmsCache = in_array("virtual-machines", $extensions);
     }
 
     public function hasVms()
     {
+        if ($this->hasVmsCache === null) {
+            $this->hasVmsCache = in_array("virtual-machines", $this->host->info()["api_extensions"]);
+        }
         return $this->hasVmsCache;
     }
 
