@@ -4,10 +4,14 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-# unreleaed
+# [0.17.0]
 
 ## Added
   - Instance files are now project aware
+  -  Add the timeout parameter correctly when waiting for an operation (@dhzavann)
+
+## Changed
+  - Delay check if vms are supported until needed (@TonyBogdanov)
 
 # [0.16.4]
 
