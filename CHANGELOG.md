@@ -4,6 +4,13 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+
+# Unreleased
+
+## Changed
+  - Make networks project aware (#16)
+
+
 # [0.17.0]
 
 ## Added

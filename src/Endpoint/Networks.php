@@ -20,7 +20,11 @@ class Networks extends AbstractEndpoint
     {
         $networks = [];
 
-        foreach ($this->get($this->getEndpoint()) as $network) {
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        foreach ($this->get($this->getEndpoint(), $config) as $network) {
             $networks[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $network);
         }
 
@@ -35,7 +39,11 @@ class Networks extends AbstractEndpoint
      */
     public function info($name)
     {
-        return $this->get($this->getEndpoint().$name);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->get($this->getEndpoint().$name, $config);
     }
 
     /**
@@ -45,7 +53,7 @@ class Networks extends AbstractEndpoint
      * @param  array  $config configuration of the network (Optional)
      * @return object
      */
-    public function create(string $name, string $description = "", array $config = [])
+    public function create(string $name, string $description = "", array $config = [], $type = "")
     {
         $data = [];
 
@@ -54,8 +62,13 @@ class Networks extends AbstractEndpoint
         if (!empty($config)) {
             $data["config"] = $config;
         }
+        $data["type"] = $type;
 
-        return $this->post($this->getEndpoint(), $data);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->post($this->getEndpoint(), $data, $config);
     }
 
     /**
@@ -65,6 +78,10 @@ class Networks extends AbstractEndpoint
      */
     public function remove($name)
     {
-        return $this->delete($this->getEndpoint().$name);
+        $config = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->delete($this->getEndpoint().$name, $config);
     }
 }
