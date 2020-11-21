@@ -7,6 +7,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 # Unreleased
 
+## Added
+ - Recursion parameter for getting images (#17)
+
 ## Changed
   - Make networks project aware (#16)
 

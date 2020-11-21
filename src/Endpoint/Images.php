@@ -18,13 +18,17 @@ class Images extends AbstractEndpoint
      *
      * @return array
      */
-    public function all()
+    public function all(int $recursion = 0)
     {
         $images = [];
 
         $config = [
             "project"=>$this->client->getProject()
         ];
+
+        if ($recursion > 0) {
+            $config["recursion"] = $recursion;
+        }
 
         foreach ($this->get($this->getEndpoint(), $config) as $image) {
             $images[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $image);
