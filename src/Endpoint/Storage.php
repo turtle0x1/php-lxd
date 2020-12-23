@@ -9,10 +9,16 @@ class Storage extends AbstractEndpoint
         return '/storage-pools/';
     }
 
-    public function all()
+    public function all(int $recursion = 0)
     {
+        $config = [];
+
+        if ($recursion > 0) {
+            $config["recursion"] = $recursion;
+        }
+
         $storagePools = [];
-        foreach ($this->get($this->getEndpoint()) as $pool) {
+        foreach ($this->get($this->getEndpoint(), $config) as $pool) {
             $storagePools[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $pool);
         }
         return $storagePools;
