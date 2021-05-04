@@ -4,6 +4,10 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.19.0]
+
+## Added
+ - Support for the warnings API
 
 # [0.18.2]
 
