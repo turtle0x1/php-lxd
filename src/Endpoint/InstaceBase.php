@@ -318,15 +318,23 @@ abstract class InstaceBase extends AbstractEndpoint
      * @param  bool   $wait Wait for operation to finish
      * @return object
      */
-    public function copy($name, $copyName, array $options = [], $wait = false)
-    {
+    public function copy(
+        $name,
+        $copyName,
+        array $options = [],
+        $wait = false,
+        string $targetProject = ""
+    ) {
         $opts = $this->getOptions($copyName, $options);
+
+        $currentProject = $this->client->getProject();
 
         $opts['source']['type'] = 'copy';
         $opts['source']['source'] = $name;
+        $opts['source']['project'] = $currentProject;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project"=>!empty($targetProject) ? $targetProject : $currentProject
         ];
 
         $response = $this->post($this->getEndpoint(), $opts, $config);
