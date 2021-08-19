@@ -27,4 +27,25 @@ class Volumes extends AbstractEndpoint
 
         return $this->get($this->getEndpoint().$pool.'/volumes/'. $path, $config);
     }
+
+    public function create(string $pool, string $name, array $config)
+    {
+        $opts['name']     = $name;
+        $opts["config"] = $config;
+
+        $httpConfig = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->post($this->getEndpoint().$pool.'/volumes/custom', $opts, $httpConfig);
+    }
+
+    public function remove(string $pool, string $name)
+    {
+        $httpConfig = [
+            "project"=>$this->client->getProject()
+        ];
+
+        return $this->delete($this->getEndpoint().$pool . '/volumes/' . $name, [], $httpConfig);
+    }
 }

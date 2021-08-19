@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.20.0]
+## Added
+ - Create storage pool volume
+ - Delete storage pool volume
+
 # [0.19.1]
 
 ## Added
