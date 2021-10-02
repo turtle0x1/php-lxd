@@ -23,12 +23,13 @@ class Snapshots extends AbstractEndpoint
      * @param  string $name Name of container
      * @return array
      */
-    public function all($name)
+    public function all($name, $recursion = 0)
     {
         $snapshots = [];
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project"=>$this->client->getProject(),
+            "recursion"=>$recursion
         ];
 
         foreach ($this->get($this->getEndpoint().$name.'/snapshots/', $config) as $snapshot) {
