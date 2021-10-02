@@ -37,6 +37,10 @@ class Storage extends AbstractEndpoint
             "config"=>$config
         ];
 
+        if (empty($config)) {
+            unset($pool["config"]);
+        }
+
         return $this->post($this->getEndpoint(), $pool);
     }
 
