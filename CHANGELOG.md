@@ -4,6 +4,14 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# Unreleased
+
+## Added
+  - Recursion parameter for getting snapshots
+
+## Fixed
+  - Cant create storage pool when sending empty config
+
 # [0.20.0]
 ## Added
  - Create storage pool volume
