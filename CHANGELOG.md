@@ -8,6 +8,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Added
   - Recursion parameter for getting snapshots
+  - Recursion parameter for getting networks
 
 ## Fixed
   - Cant create storage pool when sending empty config

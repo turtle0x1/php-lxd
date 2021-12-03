@@ -16,12 +16,13 @@ class Networks extends AbstractEndpoint
      *
      * @return array
      */
-    public function all()
+    public function all($recursion = 0)
     {
         $networks = [];
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project"=>$this->client->getProject(),
+            "recursion"=>$recursion
         ];
 
         foreach ($this->get($this->getEndpoint(), $config) as $network) {
