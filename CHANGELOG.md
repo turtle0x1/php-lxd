@@ -4,7 +4,7 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-# Unreleased
+# [0.21.0]
 
 ## Added
   - Recursion parameter for getting snapshots
