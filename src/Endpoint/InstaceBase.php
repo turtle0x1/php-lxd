@@ -409,7 +409,13 @@ abstract class InstaceBase extends AbstractEndpoint
 
         $host = $this->client->host->info();
 
-        $url = $this->client->getUrl().'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
+        $hostAddress = $this->client->getUrl();
+
+        if ($hostAddress === "http://unix.socket/") {
+            $hostAddress = "https://" . $host["environment"]["addresses"][0];
+        }
+
+        $url =  $hostAddress.'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
 
         $settings = [
             'name'         => $name,
