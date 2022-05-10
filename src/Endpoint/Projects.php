@@ -15,11 +15,15 @@ class Projects extends AbstractEndpoint
      *
      * @return array
      */
-    public function all()
+    public function all(int $recursion = 0)
     {
         $projects = [];
+        $config = [];
+        if ($recursion > 0) {
+            $config["recursion"] = $recursion;
+        }
 
-        foreach ($this->get($this->getEndpoint()) as $project) {
+        foreach ($this->get($this->getEndpoint(), $config) as $project) {
             $x = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $project);
             $x = str_replace('?project=' . $this->client->getProject(), '', $x);
 
