@@ -155,8 +155,14 @@ class Profiles extends AbstractEndpoint
     {
         $profile                = [];
         $profile['description'] = $description;
-        $profile['config']      = $config;
-        $profile['devices']     = $devices;
+
+        if (!empty($config)) {
+            $profile['config'] = $config;
+        }
+
+        if (!empty($devices)) {
+            $profile['devices'] = $devices;
+        }
 
         $config = [
             "project"=>$this->client->getProject()
