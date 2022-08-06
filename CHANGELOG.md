@@ -4,6 +4,12 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.23.0]
+
+## Changed
+ - Handle 400 responses from LXD (the generic error response) this may impact
+    exisiting code.
+
 # [0.22.1]
 
 ## Changed
