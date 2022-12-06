@@ -4,7 +4,7 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-# Unrelesed
+# [0.24.0]
 
 ## Fixed
     Cant restore snapshot from VM
