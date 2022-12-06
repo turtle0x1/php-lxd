@@ -105,7 +105,7 @@ class Snapshots extends AbstractEndpoint
     {
         $opts['restore']  = $snapshot;
 
-        $response = $this->client->containers->replace($name, $opts, $wait);
+        $response = $this->client->instances->replace($name, $opts, $wait);
 
         return $response;
     }
