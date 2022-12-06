@@ -7,6 +7,12 @@ use Opensaucesystems\Lxd\HttpClient\Message\ResponseMediator;
 use Opensaucesystems\Lxd\Exception\SourceImageException;
 use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
 
+/**
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Instance\Snapshots $snapshots
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Instance\Files $files
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Instance\Logs $logs
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Instance\Backups $backups
+ */
 abstract class InstaceBase extends AbstractEndpoint
 {
     /**

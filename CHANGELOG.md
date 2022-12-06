@@ -9,6 +9,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## Fixed
     Cant restore snapshot from VM
 
+## Dev
+    Add some dynamic properties and return types to satisfy phpstan
+
 # [0.23.0]
 
 ## Changed

@@ -4,6 +4,9 @@ namespace Opensaucesystems\Lxd\Endpoint;
 
 use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
 
+/**
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Warnings\Status $status
+ */
 class Warnings extends AbstractEndpoint
 {
     protected function getEndpoint()

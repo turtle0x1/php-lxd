@@ -4,6 +4,9 @@ namespace Opensaucesystems\Lxd\Endpoint;
 
 use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
 
+/**
+ * @property-read \Opensaucesystems\Lxd\Endpoint\Images\Aliases $aliases
+ */
 class Images extends AbstractEndpoint
 {
     protected function getEndpoint()
@@ -44,7 +47,7 @@ class Images extends AbstractEndpoint
      * @param  string $secret Secret to access private image by untrusted client
      * @return object
      */
-    public function info($fingerprint, $secret = null)
+    public function info($fingerprint, $secret = null) :array
     {
         $endpoint = $this->getEndpoint().$fingerprint;
         if (!empty($secret)) {
