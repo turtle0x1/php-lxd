@@ -8,3 +8,13 @@ client.key
 .c9
 .env
 .directory
+
+# IDE & System
+.DS_Store
+/.idea
+/.vscode
+.phpstorm.meta.php
+.phpunit.result.cache
+Thumbs.db
+/*.iml
+

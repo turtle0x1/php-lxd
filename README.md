@@ -22,6 +22,19 @@ Via Composer
 $ composer require dhope0000/lxd
 ```
 
+For usage of this library any httpclient library is needed. If you don't already use one in your project, please install one in advance.
+
+``` bash
+$ composer require php-http/guzzle7-adapter
+```
+
+## Install for usage with Guzzle 6
+
+``` bash
+$ composer require php-http/guzzle6-adapter
+$ composer require dhope0000/lxd "^0.24"
+```
+
 ## Usage
 
 See the [`docs`](./docs) for more information.
