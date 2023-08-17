@@ -604,7 +604,7 @@ abstract class InstaceBase extends AbstractEndpoint
             $waitResponse = $this->client->operations->wait($response['id']);
 
             if ($record === true) {
-                $output = $waitResponse['metadata']['output'];
+                $output = isset($waitResponse['metadata']['output']) ? $waitResponse['metadata']['output'] : [];
                 $return = $waitResponse['metadata']['return'];
                 unset($waitResponse);
                 $response = [];
