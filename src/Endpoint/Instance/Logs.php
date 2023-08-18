@@ -3,6 +3,7 @@
 namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
+use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
 
 class Logs extends AbstractEndpoint
 {
@@ -61,5 +62,21 @@ class Logs extends AbstractEndpoint
     public function remove($name, $log)
     {
         return $this->delete($this->getEndpoint().$name.'/logs/'.$log);
+    }
+
+    public function __get($endpoint)
+    {
+        $className =  basename(str_replace('\\', '/', get_class($this)));
+        $class = __NAMESPACE__.'\\'.$className.'\\'.ucfirst($endpoint);
+
+        if (class_exists($class)) {
+            $class = new $class($this->client);
+            $class->setEndpoint($this->getEndpoint());
+            return $class;
+        } else {
+            throw new InvalidEndpointException(
+                'Endpoint '.$class.', not implemented.'
+            );
+        }
     }
 }
