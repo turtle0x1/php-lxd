@@ -29,9 +29,9 @@ class Str
             return static::$studlyCache[$key];
         }
 
-        $words = explode(' ', static::replace(['-', '_'], ' ', $value));
+        $words = explode(' ', str_replace(['-', '_'], ' ', $value));
 
-        $studlyWords = array_map(fn ($word) => static::ucfirst($word), $words);
+        $studlyWords = array_map(function ($word) { return ucfirst($word); }, $words);
 
         return static::$studlyCache[$key] = implode($studlyWords);
     }

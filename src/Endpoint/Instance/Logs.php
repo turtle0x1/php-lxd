@@ -4,6 +4,7 @@ namespace Opensaucesystems\Lxd\Endpoint\Instance;
 
 use Opensaucesystems\Lxd\Endpoint\AbstractEndpoint;
 use Opensaucesystems\Lxd\Exception\InvalidEndpointException;
+use Opensaucesystems\Lxd\Helpers\Str;
 
 class Logs extends AbstractEndpoint
 {
@@ -67,7 +68,7 @@ class Logs extends AbstractEndpoint
     public function __get($endpoint)
     {
         $className =  basename(str_replace('\\', '/', get_class($this)));
-        $class = __NAMESPACE__.'\\'.$className.'\\'.ucfirst($endpoint);
+        $class = __NAMESPACE__.'\\'.$className.'\\'.Str::studly($endpoint);
 
         if (class_exists($class)) {
             $class = new $class($this->client);
