@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.25.0]
+
+## Added
+    Token paramater when adding new certificate to LXD
+
 # [0.24.0]
 
 ## Fixed
