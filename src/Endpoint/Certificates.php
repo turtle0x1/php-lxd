@@ -21,7 +21,7 @@ class Certificates extends AbstractEndpoint
         $certificates = [];
 
         foreach ($this->get($this->getEndpoint()) as $certificate) {
-            $certificates[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $certificate);
+            $certificates[] = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $certificate);
         }
 
         return $certificates;
@@ -35,7 +35,7 @@ class Certificates extends AbstractEndpoint
      */
     public function info($fingerprint)
     {
-        return $this->get($this->getEndpoint().$fingerprint);
+        return $this->get($this->getEndpoint() . $fingerprint);
     }
 
     /**
@@ -51,14 +51,15 @@ class Certificates extends AbstractEndpoint
      * @param  string $password    Password for untrusted client
      * @param  string $name        Name for the certificate. If nothing is provided, the host in the TLS header for
      *                             the request is used.
+     * @param  string $token       The join token to use in modern LXD (leave password as null)
      * @return string fingerprint of certificate
      */
-    public function add($certificate, $password = null, $name = null)
+    public function add($certificate, $password = null, $name = null, $token = null)
     {
         // Convert PEM certificate to DER certificate
         $begin = "CERTIFICATE-----";
         $end   = "-----END";
-        $pem_data = substr($certificate, strpos($certificate, $begin)+strlen($begin));
+        $pem_data = substr($certificate, strpos($certificate, $begin) + strlen($begin));
         $pem_data = substr($pem_data, 0, strpos($pem_data, $end));
         $der = base64_decode($pem_data);
 
@@ -72,11 +73,15 @@ class Certificates extends AbstractEndpoint
             $options['password'] = $password;
         }
 
+        if ($token !== null) {
+            $options['trust_token'] = $token;
+        }
+
         if ($name !== null) {
             $options['name'] = $name;
         }
 
-        $response = $this->post($this->getEndpoint(), $options);
+        $this->post($this->getEndpoint(), $options);
 
         return $fingerprint;
     }
@@ -88,6 +93,6 @@ class Certificates extends AbstractEndpoint
      */
     public function remove($fingerprint)
     {
-        $this->delete($this->getEndpoint().$fingerprint);
+        $this->delete($this->getEndpoint() . $fingerprint);
     }
 }
