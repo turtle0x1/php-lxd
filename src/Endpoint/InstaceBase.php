@@ -573,7 +573,7 @@ abstract class InstaceBase extends AbstractEndpoint
      * @param bool         $record      Whether to store stdout and stderr
      * @param array        $environment An associative array, the key will be the environment variable name
      * @param bool         $wait        Wait for operation to finish
-     * @return object
+     * @return array|string
      */
     public function execute($name, $command, $record = false, array $environment = [], $wait = false)
     {
@@ -601,21 +601,24 @@ abstract class InstaceBase extends AbstractEndpoint
         $response = $this->post($this->getEndpoint().$name.'/exec', $opts, $config);
 
         if ($wait) {
-            $response = $this->client->operations->wait($response['id']);
-            $logs = [];
-            $output = $response['metadata']['output'];
-            $return = $response['metadata']['return'];
-            unset($response);
+            $waitResponse = $this->client->operations->wait($response['id']);
 
-            foreach ($output as $log) {
-                $response['output'][] = str_replace(
-                    '/'.$this->client->getApiVersion().$this->getEndpoint().$name.'/logs/',
-                    '',
-                    $log
-                );
+            if ($record === true) {
+                $output = isset($waitResponse['metadata']['output']) ? $waitResponse['metadata']['output'] : [];
+                $return = $waitResponse['metadata']['return'];
+                unset($waitResponse);
+                $response = [];
+
+                foreach ($output as $log) {
+                    $response['output'][] = str_replace(
+                        '/' . $this->client->getApiVersion() . $this->getEndpoint() . $name . '/logs/',
+                        '',
+                        $log
+                    );
+                }
+
+                $response['return'] = $return;
             }
-
-            $response['return'] = $return;
         }
 
         return $response;
