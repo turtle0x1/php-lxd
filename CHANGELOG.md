@@ -4,6 +4,12 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [1.0.0]
+
+## Changed
+    Bump to guzzle7
+    Fix spelling mistake in LxdExceptionThrower class name
+
 # [0.26.0]
 
 ## Added
