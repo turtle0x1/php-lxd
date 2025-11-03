@@ -4,6 +4,11 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [0.26.0]
+
+## Added
+    Method to create volume from file
+
 # [0.25.0]
 
 ## Added
