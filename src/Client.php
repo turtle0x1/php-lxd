@@ -7,7 +7,7 @@ use Opensaucesystems\Lxd\Exception\ClientConnectionException;
 use Opensaucesystems\Lxd\Exception\ServerException;
 use Opensaucesystems\Lxd\HttpClient\Plugin\PathPrepend;
 use Opensaucesystems\Lxd\HttpClient\Plugin\PathTrimEnd;
-use Opensaucesystems\Lxd\HttpClient\Plugin\LxdExceptionThower;
+use Opensaucesystems\Lxd\HttpClient\Plugin\LxdExceptionThrower;
 use Http\Client\Common\HttpMethodsClient;
 use Http\Client\Common\Plugin;
 use Http\Client\Common\PluginClient;
@@ -84,7 +84,7 @@ class Client
         $this->url            = $url ?: 'https://127.0.0.1:8443';
         $this->projectName    = $projectName;
 
-        $this->addPlugin(new LxdExceptionThower());
+        $this->addPlugin(new LxdExceptionThrower());
 
         $this->setUrl($this->url);
     }
