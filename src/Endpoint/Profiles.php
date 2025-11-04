@@ -18,22 +18,18 @@ class Profiles extends AbstractEndpoint
      */
     public function all(int $recursion = 0)
     {
-        $profiles = [];
-
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject(),
+            "recursion" => $recursion
         ];
 
-        if ($recursion > 0) {
-            $config["recursion"] = $recursion;
-        }
+        $profiles = $this->get($this->getEndpoint(), $config);
 
-
-        foreach ($this->get($this->getEndpoint(), $config) as $profile) {
-            $x = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $profile);
-            $x = str_replace('?project=' . $this->client->getProject(), '', $x);
-
-            $profiles[] = $x;
+        if ($recursion == 0) {
+            foreach ($profiles as &$profile) {
+                $profile = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $profile);
+                $profile = str_replace('?project=' . $this->client->getProject(), '', $profile);                
+            }
         }
 
         return $profiles;
@@ -48,10 +44,10 @@ class Profiles extends AbstractEndpoint
     public function info($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->get($this->getEndpoint().$name, $config);
+        return $this->get($this->getEndpoint() . $name, $config);
     }
 
     /**
@@ -85,7 +81,7 @@ class Profiles extends AbstractEndpoint
         $profile['devices']     = $devices;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
         return $this->post($this->getEndpoint(), $profile, $config);
@@ -122,10 +118,10 @@ class Profiles extends AbstractEndpoint
         $profile['devices']     = $devices;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->patch($this->getEndpoint().$name, $profile, $config);
+        return $this->patch($this->getEndpoint() . $name, $profile, $config);
     }
 
     /**
@@ -165,10 +161,10 @@ class Profiles extends AbstractEndpoint
         }
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->put($this->getEndpoint().$name, $profile, $config);
+        return $this->put($this->getEndpoint() . $name, $profile, $config);
     }
 
     /**
@@ -184,10 +180,10 @@ class Profiles extends AbstractEndpoint
         $profile['name']        = $newName;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->post($this->getEndpoint().$name, $profile, $config);
+        return $this->post($this->getEndpoint() . $name, $profile, $config);
     }
 
     /**
@@ -198,9 +194,9 @@ class Profiles extends AbstractEndpoint
     public function remove($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->delete($this->getEndpoint().$name, $config);
+        return $this->delete($this->getEndpoint() . $name, $config);
     }
 }

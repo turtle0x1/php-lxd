@@ -24,18 +24,17 @@ abstract class InstaceBase extends AbstractEndpoint
      */
     public function all(int $recursion = 0)
     {
-        $containers = [];
-
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject(),
+            "recursion" => $recursion
         ];
 
-        if ($recursion > 0) {
-            $config["recursion"] = $recursion;
-        }
+        $containers = $this->get($this->getEndpoint(), $config);
 
-        foreach ($this->get($this->getEndpoint(), $config) as $container) {
-            $containers[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $container);
+        if ($recursion == 0) {
+            foreach ($containers as &$container) {
+                $container = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $container);
+            }
         }
 
         return $containers;
@@ -50,10 +49,10 @@ abstract class InstaceBase extends AbstractEndpoint
     public function info($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->get($this->getEndpoint().$name, $config);
+        return $this->get($this->getEndpoint() . $name, $config);
     }
 
     /**
@@ -65,10 +64,10 @@ abstract class InstaceBase extends AbstractEndpoint
     public function state($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->get($this->getEndpoint().$name.'/state', $config);
+        return $this->get($this->getEndpoint() . $name . '/state', $config);
     }
 
     /**
@@ -90,10 +89,10 @@ abstract class InstaceBase extends AbstractEndpoint
         $opts['stateful'] = $stateful;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->put($this->getEndpoint().$name.'/state', $opts, $config);
+        $response = $this->put($this->getEndpoint() . $name . '/state', $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -288,7 +287,7 @@ abstract class InstaceBase extends AbstractEndpoint
         }
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
         if (!empty($target)) {
@@ -340,7 +339,7 @@ abstract class InstaceBase extends AbstractEndpoint
         $opts['source']['project'] = $currentProject;
 
         $config = [
-            "project"=>!empty($targetProject) ? $targetProject : $currentProject
+            "project" => !empty($targetProject) ? $targetProject : $currentProject
         ];
 
         $response = $this->post($this->getEndpoint(), $opts, $config);
@@ -399,7 +398,7 @@ abstract class InstaceBase extends AbstractEndpoint
             }
             $containerName = $parts[0];
             $container = $this->snapshots->info($containerName, $parts[1]);
-            $containerName = $parts[0] . "/snapshots/". $parts[1];
+            $containerName = $parts[0] . "/snapshots/" . $parts[1];
         } else {
             $containerName = $name;
             $container = $this->info($name);
@@ -407,10 +406,10 @@ abstract class InstaceBase extends AbstractEndpoint
 
 
 
-        $migration = $this->post($this->getEndpoint().$containerName, [
-            'name'=>$newName,
+        $migration = $this->post($this->getEndpoint() . $containerName, [
+            'name' => $newName,
             'migration' => true,
-            'stateful'=>false
+            'stateful' => false
         ]);
 
         $host = $this->client->host->info();
@@ -421,7 +420,7 @@ abstract class InstaceBase extends AbstractEndpoint
             $hostAddress = "https://" . $host["environment"]["addresses"][0];
         }
 
-        $url =  $hostAddress.'/'.$this->client->getApiVersion().'/operations/'.$migration['id'];
+        $url =  $hostAddress . '/' . $this->client->getApiVersion() . '/operations/' . $migration['id'];
 
         $settings = [
             'name'         => $name,
@@ -470,10 +469,10 @@ abstract class InstaceBase extends AbstractEndpoint
     public function replace($name, $container, $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->put($this->getEndpoint().$name, $container, $config);
+        $response = $this->put($this->getEndpoint() . $name, $container, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -506,10 +505,10 @@ abstract class InstaceBase extends AbstractEndpoint
     public function update($name, $config, $wait = false)
     {
         $options = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->patch($this->getEndpoint().$name, $config, $options);
+        $response = $this->patch($this->getEndpoint() . $name, $config, $options);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -531,10 +530,10 @@ abstract class InstaceBase extends AbstractEndpoint
         $opts['name'] = $newName;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->post($this->getEndpoint().$name, $opts, $config);
+        $response = $this->post($this->getEndpoint() . $name, $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -553,10 +552,10 @@ abstract class InstaceBase extends AbstractEndpoint
     public function remove($name, $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->delete($this->getEndpoint().$name, $config);
+        $response = $this->delete($this->getEndpoint() . $name, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -595,10 +594,10 @@ abstract class InstaceBase extends AbstractEndpoint
         $opts['interactive'] = false;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->post($this->getEndpoint().$name.'/exec', $opts, $config);
+        $response = $this->post($this->getEndpoint() . $name . '/exec', $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -609,7 +608,7 @@ abstract class InstaceBase extends AbstractEndpoint
 
             foreach ($output as $log) {
                 $response['output'][] = str_replace(
-                    '/'.$this->client->getApiVersion().$this->getEndpoint().$name.'/logs/',
+                    '/' . $this->client->getApiVersion() . $this->getEndpoint() . $name . '/logs/',
                     '',
                     $log
                 );
@@ -623,7 +622,7 @@ abstract class InstaceBase extends AbstractEndpoint
 
     public function __get($endpoint)
     {
-        $class = __NAMESPACE__.'\\Instance\\'.ucfirst($endpoint);
+        $class = __NAMESPACE__ . '\\Instance\\' . ucfirst($endpoint);
 
         if (class_exists($class)) {
             $class = new $class($this->client);
@@ -631,7 +630,7 @@ abstract class InstaceBase extends AbstractEndpoint
             return $class;
         } else {
             throw new InvalidEndpointException(
-                'Endpoint '.$class.', not implemented.'
+                'Endpoint ' . $class . ', not implemented.'
             );
         }
     }
@@ -728,7 +727,7 @@ abstract class InstaceBase extends AbstractEndpoint
 
         foreach ($attrs as $attr) {
             if (!empty($options[$attr])) {
-                throw new \Exception('empty => true is not compatible with '.$attr);
+                throw new \Exception('empty => true is not compatible with ' . $attr);
             }
         }
 
@@ -786,7 +785,7 @@ abstract class InstaceBase extends AbstractEndpoint
 
         foreach ($attrs as $attr) {
             if (!empty($options[$attr])) {
-                throw new \Exception('Only setting remote server is compatible with '.$attr);
+                throw new \Exception('Only setting remote server is compatible with ' . $attr);
             }
         }
 

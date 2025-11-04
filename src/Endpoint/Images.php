@@ -23,20 +23,18 @@ class Images extends AbstractEndpoint
      */
     public function all(int $recursion = 0)
     {
-        $images = [];
-
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject(),
+            "recursion" => $recursion
         ];
 
-        if ($recursion > 0) {
-            $config["recursion"] = $recursion;
-        }
+        $images = $this->get($this->getEndpoint(), $config);
 
-        foreach ($this->get($this->getEndpoint(), $config) as $image) {
-            $images[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $image);
+        if ($recursion == 0) {
+            foreach ($images as &$image) {
+                $image = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $image);
+            }
         }
-
         return $images;
     }
 
@@ -47,15 +45,15 @@ class Images extends AbstractEndpoint
      * @param  string $secret Secret to access private image by untrusted client
      * @return object
      */
-    public function info($fingerprint, $secret = null) :array
+    public function info($fingerprint, $secret = null): array
     {
-        $endpoint = $this->getEndpoint().$fingerprint;
+        $endpoint = $this->getEndpoint() . $fingerprint;
         if (!empty($secret)) {
-            $endpoint .= '?secret='.$secret;
+            $endpoint .= '?secret=' . $secret;
         }
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
         return $this->get($endpoint, $config);
@@ -77,7 +75,7 @@ class Images extends AbstractEndpoint
     public function create(array $options, $headers = [], $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
         $response = $this->post($this->getEndpoint(), $options, $config, $headers);
@@ -220,7 +218,7 @@ class Images extends AbstractEndpoint
     {
         $opts                   = $this->getOptions($options);
         $opts['source']['type'] = 'snapshot';
-        $opts['source']['name'] = $container.'/'.$snapshot;
+        $opts['source']['name'] = $container . '/' . $snapshot;
 
         return $this->create($opts, [], $wait);
     }
@@ -250,10 +248,10 @@ class Images extends AbstractEndpoint
     public function replace($fingerprint, $options, $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->put($this->getEndpoint().$fingerprint, $options, $config);
+        $response = $this->put($this->getEndpoint() . $fingerprint, $options, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -272,10 +270,10 @@ class Images extends AbstractEndpoint
     public function remove($fingerprint, $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->delete($this->getEndpoint().$fingerprint, $config);
+        $response = $this->delete($this->getEndpoint() . $fingerprint, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -286,13 +284,13 @@ class Images extends AbstractEndpoint
 
     public function __get($endpoint)
     {
-        $class = __NAMESPACE__.'\\Images\\'.ucfirst($endpoint);
+        $class = __NAMESPACE__ . '\\Images\\' . ucfirst($endpoint);
 
         if (class_exists($class)) {
             return new $class($this->client);
         } else {
             throw new InvalidEndpointException(
-                'Endpoint '.$class.', not implemented.'
+                'Endpoint ' . $class . ', not implemented.'
             );
         }
     }

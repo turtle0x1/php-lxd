@@ -25,21 +25,21 @@ class Snapshots extends AbstractEndpoint
      */
     public function all($name, $recursion = 0)
     {
-        $snapshots = [];
 
         $config = [
-            "project"=>$this->client->getProject(),
-            "recursion"=>$recursion
+            "project" => $this->client->getProject(),
+            "recursion" => $recursion
         ];
-
-        foreach ($this->get($this->getEndpoint().$name.'/snapshots/', $config) as $snapshot) {
-            $snapshot = str_replace(
-                '/'.$this->client->getApiVersion().$this->getEndpoint().$name.'/snapshots/',
-                '',
-                $snapshot
-            );
-            $snapshot = str_replace("?project=".$config["project"], "", $snapshot);
-            $snapshots[] = $snapshot;
+        $snapshots = $this->get($this->getEndpoint() . $name . '/snapshots/', $config);
+        if ($recursion == 0) {
+            foreach ($snapshots as &$snapshot) {
+                $snapshot = str_replace(
+                    '/' . $this->client->getApiVersion() . $this->getEndpoint() . $name . '/snapshots/',
+                    '',
+                    $snapshot
+                );
+                $snapshot = str_replace("?project=" . $config["project"], "", $snapshot);
+            }
         }
 
         return $snapshots;
@@ -55,10 +55,10 @@ class Snapshots extends AbstractEndpoint
     public function info($name, $snapshot)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->get($this->getEndpoint().$name.'/snapshots/'.$snapshot, $config);
+        return $this->get($this->getEndpoint() . $name . '/snapshots/' . $snapshot, $config);
     }
 
     /**
@@ -81,10 +81,10 @@ class Snapshots extends AbstractEndpoint
         $opts['stateful'] = $stateful;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->post($this->getEndpoint().$name.'/snapshots', $opts, $config);
+        $response = $this->post($this->getEndpoint() . $name . '/snapshots', $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -123,9 +123,9 @@ class Snapshots extends AbstractEndpoint
     {
         $opts['name'] = $newSnapshot;
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
-        $response = $this->post($this->getEndpoint().$name.'/snapshots/'.$snaphot, $opts, $config);
+        $response = $this->post($this->getEndpoint() . $name . '/snapshots/' . $snaphot, $opts, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);
@@ -145,10 +145,10 @@ class Snapshots extends AbstractEndpoint
     public function remove($name, $snaphot, $wait = false)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        $response = $this->delete($this->getEndpoint().$name.'/snapshots/'.$snaphot, $config);
+        $response = $this->delete($this->getEndpoint() . $name . '/snapshots/' . $snaphot, $config);
 
         if ($wait) {
             $response = $this->client->operations->wait($response['id']);

@@ -18,16 +18,15 @@ class Members extends AbstractEndpoint
      */
     public function all(int $recursion = 0)
     {
-        $members = [];
+        $config = [
+            "recursion" => $recursion
+        ];
 
-        $config = [];
-
-        if ($recursion > 0) {
-            $config["recursion"] = $recursion;
-        }
-
-        foreach ($this->get($this->getEndpoint(), $config) as $member) {
-            $members[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $member);
+        $members = $this->get($this->getEndpoint(), $config);
+        if ($recursion == 0) {
+            foreach ($members as &$member) {
+                $member = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $member);
+            }
         }
 
         return $members;
@@ -35,16 +34,16 @@ class Members extends AbstractEndpoint
 
     public function info(string $name)
     {
-        return $this->get($this->getEndpoint()."$name");
+        return $this->get($this->getEndpoint() . "$name");
     }
 
     public function rename(string $name, string $newName)
     {
-        return $this->post($this->getEndpoint()."$name", ["server_name"=>$newName]);
+        return $this->post($this->getEndpoint() . "$name", ["server_name" => $newName]);
     }
 
     public function remove(string $name)
     {
-        return $this->delete($this->getEndpoint()."$name");
+        return $this->delete($this->getEndpoint() . "$name");
     }
 }

@@ -17,17 +17,15 @@ class Projects extends AbstractEndpoint
      */
     public function all(int $recursion = 0)
     {
-        $projects = [];
-        $config = [];
-        if ($recursion > 0) {
-            $config["recursion"] = $recursion;
-        }
-
-        foreach ($this->get($this->getEndpoint(), $config) as $project) {
-            $x = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $project);
-            $x = str_replace('?project=' . $this->client->getProject(), '', $x);
-
-            $projects[] = $x;
+        $config = [
+            "recursion" => $recursion
+        ];
+        $projects = $this->get($this->getEndpoint(), $config);
+        if ($recursion == 0) {
+            foreach ($projects as &$project) {
+                $project = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $project);
+                $project = str_replace('?project=' . $this->client->getProject(), '', $project);
+            }
         }
 
         return $projects;
@@ -69,7 +67,7 @@ class Projects extends AbstractEndpoint
 
     public function rename(string $name, string $newName)
     {
-        $config = ["name"=>$newName];
+        $config = ["name" => $newName];
         return $this->post($this->getEndpoint() . $name, $config);
     }
 
@@ -81,8 +79,8 @@ class Projects extends AbstractEndpoint
     private function defaultProjectConfig()
     {
         return [
-            "features.images"=>"true",
-            "features.profiles"=>"true",
+            "features.images" => "true",
+            "features.profiles" => "true",
         ];
     }
 }

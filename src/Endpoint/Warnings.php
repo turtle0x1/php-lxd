@@ -17,7 +17,7 @@ class Warnings extends AbstractEndpoint
     public function all(string $project = null, int $recursion = 1)
     {
         $config = [
-            "recursion"=>1
+            "recursion"=>$recursion
         ];
 
         if (!empty($project)) {

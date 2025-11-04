@@ -18,15 +18,17 @@ class Networks extends AbstractEndpoint
      */
     public function all($recursion = 0)
     {
-        $networks = [];
-
         $config = [
-            "project"=>$this->client->getProject(),
-            "recursion"=>$recursion
+            "project" => $this->client->getProject(),
+            "recursion" => $recursion
         ];
 
-        foreach ($this->get($this->getEndpoint(), $config) as $network) {
-            $networks[] = str_replace('/'.$this->client->getApiVersion().$this->getEndpoint(), '', $network);
+        $networks = $this->get($this->getEndpoint(), $config);
+
+        if ($recursion == 0) {
+            foreach ($networks as &$network) {
+                $network = str_replace('/' . $this->client->getApiVersion() . $this->getEndpoint(), '', $network);
+            }
         }
 
         return $networks;
@@ -41,10 +43,10 @@ class Networks extends AbstractEndpoint
     public function info($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->get($this->getEndpoint().$name, $config);
+        return $this->get($this->getEndpoint() . $name, $config);
     }
 
     /**
@@ -66,7 +68,7 @@ class Networks extends AbstractEndpoint
         $data["type"] = $type;
 
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
         return $this->post($this->getEndpoint(), $data, $config);
@@ -80,9 +82,9 @@ class Networks extends AbstractEndpoint
     public function remove($name)
     {
         $config = [
-            "project"=>$this->client->getProject()
+            "project" => $this->client->getProject()
         ];
 
-        return $this->delete($this->getEndpoint().$name, $config);
+        return $this->delete($this->getEndpoint() . $name, $config);
     }
 }
