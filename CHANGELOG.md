@@ -4,6 +4,13 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# Unreleased
+## Changed
+    Require PHP >= 7.2.5 and support PHP8 in composer.json
+
+## Fixed
+    Setting recursion > 0 was str_replace on array, breaking in PHP8
+
 # [1.0.0]
 
 ## Changed
