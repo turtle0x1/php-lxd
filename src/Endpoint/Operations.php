@@ -72,7 +72,7 @@ class Operations extends AbstractEndpoint
      * @param  int    $timeout Max time to wait
      * @return array
      */
-    public function wait($uuid, $timeout = null)
+    public function wait($uuid, ?int $timeout = null)
     {
         $config = [
             "project"=>$this->client->getProject()

@@ -10,7 +10,7 @@ class AuthenticationFailedException extends HttpException
 {
     protected $message = 'LXD client certificate is not trusted.';
     
-    public function __construct(RequestInterface $request, ResponseInterface $response, \Exception $previous = null)
+    public function __construct(RequestInterface $request, ResponseInterface $response, ?\Exception $previous = null)
     {
         parent::__construct($this->message, $request, $response, $previous);
     }

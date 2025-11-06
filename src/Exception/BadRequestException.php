@@ -10,7 +10,7 @@ class BadRequestException extends HttpException
 {
     private $fallbackMessage = "LXD produced an error state but we could not parse the response";
 
-    public function __construct(RequestInterface $request, ResponseInterface $response, \Exception $previous = null)
+    public function __construct(RequestInterface $request, ResponseInterface $response, ?\Exception $previous = null)
     {
         $content = json_decode($response->getBody()->getContents(), true);
 

@@ -72,7 +72,7 @@ class Profiles extends AbstractEndpoint
      * @param  array  $devices     Devices of profile
      * @return object
      */
-    public function create($name, $description = '', array $config = null, array $devices = null)
+    public function create($name, $description = '', ?array $config = null, ?array $devices = null)
     {
         $profile                = [];
         $profile['name']        = $name;
@@ -110,7 +110,7 @@ class Profiles extends AbstractEndpoint
      * @param  array  $devices     Devices of profile
      * @return object
      */
-    public function update($name, $description = '', array $config = null, array $devices = null)
+    public function update($name, $description = '', ?array $config = null, ?array $devices = null)
     {
         $profile                = [];
         $profile['description'] = $description;
@@ -147,7 +147,7 @@ class Profiles extends AbstractEndpoint
      * @param  array  $devices     Devices of profile
      * @return object
      */
-    public function replace($name, $description = '', array $config = null, array $devices = null)
+    public function replace($name, $description = '', ?array $config = null, ?array $devices = null)
     {
         $profile                = [];
         $profile['description'] = $description;

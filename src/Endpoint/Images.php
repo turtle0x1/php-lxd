@@ -45,7 +45,7 @@ class Images extends AbstractEndpoint
      * @param  string $secret Secret to access private image by untrusted client
      * @return object
      */
-    public function info($fingerprint, $secret = null): array
+    public function info($fingerprint, ?string $secret = null): array
     {
         $endpoint = $this->getEndpoint() . $fingerprint;
         if (!empty($secret)) {

@@ -10,7 +10,7 @@ class NotFoundException extends HttpException
 {
     protected $message = 'Not found.';
     
-    public function __construct(RequestInterface $request, ResponseInterface $response, \Exception $previous = null)
+    public function __construct(RequestInterface $request, ResponseInterface $response, ?\Exception $previous = null)
     {
         parent::__construct($this->message, $request, $response, $previous);
     }

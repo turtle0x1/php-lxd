@@ -54,7 +54,7 @@ class Certificates extends AbstractEndpoint
      * @param  string $token       The join token to use in modern LXD (leave password as null)
      * @return string fingerprint of certificate
      */
-    public function add($certificate, $password = null, $name = null, $token = null)
+    public function add($certificate, ?string $password = null, ?string $name = null, ?string $token = null)
     {
         // Convert PEM certificate to DER certificate
         $begin = "CERTIFICATE-----";
