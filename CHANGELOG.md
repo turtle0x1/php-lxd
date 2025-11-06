@@ -4,7 +4,7 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-# Unreleased
+# [1.1.0]
 ## Changed
     Require PHP >= 7.2.5 and support PHP8 in composer.json
 
