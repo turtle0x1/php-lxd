@@ -82,7 +82,7 @@ class Client
         $this->messageFactory = MessageFactoryDiscovery::find();
         $this->apiVersion     = $apiVersion ?: '1.0';
         $this->url            = $url ?: 'https://127.0.0.1:8443';
-        $this->projectName    = $projectName;
+        $this->project        = $projectName;
 
         $this->addPlugin(new LxdExceptionThrower());
 
