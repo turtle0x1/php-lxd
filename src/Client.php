@@ -73,9 +73,9 @@ class Client
      * Create a new lxd client Instance
      */
     public function __construct(
-        HttpClient $httpClient = null,
-        $apiVersion = null,
-        $url = null,
+        ?HttpClient $httpClient = null,
+        ?string $apiVersion = null,
+        ?string $url = null,
         string $projectName = "default"
     ) {
         $this->httpClient     = $httpClient ?: HttpClientDiscovery::find();
