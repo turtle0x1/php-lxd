@@ -4,6 +4,10 @@ All Notable changes to `php-lxd` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+# [1.3.0]
+## Added
+  Support for some IncusOS GET/POST API's
+  
 # [1.2.0]
 ## Fixed
     Derpciation warnings caused by PHP 8.4    
