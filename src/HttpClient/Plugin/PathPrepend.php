@@ -29,8 +29,12 @@ class PathPrepend implements Plugin
     public function handleRequest(RequestInterface $request, callable $next, callable $first): Promise
     {
         $currentPath = $request->getUri()->getPath();
-        $uri = $request->getUri()->withPath($this->path.$currentPath);
-        $request = $request->withUri($uri);
+        // Incus proxies requests to its OS management API but the path 
+        // is like `/os/1.0/X` instead of `/1.0/X` for normal operations
+        if(substr($currentPath, 0, strlen("/os/")) !== "/os/"){
+            $uri = $request->getUri()->withPath($this->path . $currentPath);
+            $request = $request->withUri($uri);
+        }        
 
         return $next($request);
     }
